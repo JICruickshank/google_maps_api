@@ -3,6 +3,7 @@ const MapWrapper = function(container, coords, zoom) {
     center: coords,
     zoom: zoom
   });
+  this.markers = [];
 }
 
 MapWrapper.prototype.addMarker = function (coords) {
@@ -10,6 +11,8 @@ MapWrapper.prototype.addMarker = function (coords) {
     position: coords,
     map: this.googleMap
   });
+  this.markers.push(marker);
+  return marker;
 };
 
 MapWrapper.prototype.addClickEvent = function () {
@@ -19,5 +22,14 @@ MapWrapper.prototype.addClickEvent = function () {
     coords = {lat: lat, lng: lng }
     this.addMarker(coords);
   }.bind(this));
+};
 
+MapWrapper.prototype.addInfoWindow = function (marker, content) {
+  let infoWindow = new google.maps.InfoWindow({
+    content: content
+  })
+  marker.addListener("click", function() {
+    debugger;
+    infoWindow.open(this, marker)
+  });
 };
