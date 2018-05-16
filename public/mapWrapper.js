@@ -29,7 +29,6 @@ MapWrapper.prototype.addInfoWindow = function (marker, content) {
     content: content
   })
   marker.addListener("click", function() {
-    debugger;
     infoWindow.open(this, marker)
   });
 };

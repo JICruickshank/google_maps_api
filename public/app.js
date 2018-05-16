@@ -7,13 +7,23 @@ const initialize = function() {
   map.addClickEvent();
   map.addInfoWindow(marker, "Theatre of Dreams")  ;
   takeMeTo(map, chicago);
-}
+  checkLocation();
 
 const takeMeTo = function(map, coords) {chicagoButton = document.querySelector("#chicago-button")
 chicagoButton.addEventListener("click", function() {
-  debugger;
   map.googleMap.setCenter(coords);
 });
+}
+
+const checkLocation = function() {
+  document.querySelector("#checkLocation");
+  checkLocation.addEventListener("click", function() {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    const myLocation = {lat: position.coords.latitude, lng: position.coords.longitude};
+    map.googleMap.setCenter(myLocation);
+  })
+});
+}
 }
 
 window.addEventListener("load", initialize);
